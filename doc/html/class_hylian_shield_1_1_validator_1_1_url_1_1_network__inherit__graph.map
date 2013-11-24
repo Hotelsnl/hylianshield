@@ -1,0 +1,5 @@
+<map id="Network" name="Network">
+<area shape="rect" id="node5" href="$class_hylian_shield_1_1_validator_1_1_url_1_1_network_1_1_http.html" title="Http" alt="" coords="5,160,51,189"/>
+<area shape="rect" id="node7" href="$class_hylian_shield_1_1_validator_1_1_url_1_1_network_1_1_https.html" title="Https" alt="" coords="75,160,128,189"/>
+<area shape="rect" id="node2" href="$class_hylian_shield_1_1_validator.html" title="Validator" alt="" coords="28,5,100,35"/>
+</map>
