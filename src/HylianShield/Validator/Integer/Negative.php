@@ -9,10 +9,12 @@
 
 namespace HylianShield\Validator\Integer;
 
+use \HylianShield\Validator\Integer;
+
 /**
  * Negative.
  */
-class Negative extends \HylianShield\Validator\Integer
+class Negative extends \HylianShield\Validator
 {
     /**
      * The type.
@@ -22,23 +24,17 @@ class Negative extends \HylianShield\Validator\Integer
     protected $type = 'integer_negative';
 
     /**
-     * The minimum length of the value.
+     * The boundary for a negative integer.
      *
-     * @var integer $minLength
+     * @var integer BOUNDARY
      */
-    protected $minLength = 0;
+    const BOUNDARY = -1;
 
     /**
-     * The maximum length of the value.
-     *
-     * @var integer $maxLength
+     * Create a validator for a negative integer.
      */
-    protected $maxLength = -1;
-
-    /**
-     * Define the ability to overload the range while constucting the object.
-     *
-     * @var boolean $canOverloadRange
-     */
-    protected $canOverloadRange = false;
+    public function __construct()
+    {
+        $this->validator = new Integer(0, $this::BOUNDARY);
+    }
 }

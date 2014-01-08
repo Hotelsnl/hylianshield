@@ -9,12 +9,16 @@
 
 namespace HylianShield\Validator;
 
-use \InvalidArgumentException;
+use \HylianShield\Validator\Float;
+use \HylianShield\Validator\Integer;
+use \HylianShield\Validator\LogicalOr;
 
 /**
  * Number.
+ * We extend Float, since number needs to use the same precision as the most
+ * precise of the internal validators.
  */
-class Number extends \HylianShield\Validator\Range
+class Number extends \HylianShield\Validator\Float
 {
     /**
      * The type.
@@ -24,29 +28,11 @@ class Number extends \HylianShield\Validator\Range
     protected $type = 'number';
 
     /**
-     * The validator.
-     *
-     * @var callable $validator
-     */
-    protected $validator;
-
-    /**
-     * The callable to return the length of the value.
-     *
-     * @var callable $lengthCheck
-     */
-    protected $lengthCheck = 'round';
-
-    /**
      * Create the validator
-     *
-     * @return callable
      */
     protected function createValidator()
     {
         // Set a custom validator.
-        return function ($value) {
-            return is_int($value) || is_float($value);
-        };
+        return new LogicalOr(new Integer, new Float);
     }
 }

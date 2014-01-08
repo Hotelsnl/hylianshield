@@ -10,9 +10,9 @@
 namespace HylianShield\Validator\Financial;
 
 /**
- * String.
+ * Iban.
  */
-class Iban extends \HylianShield\Validator\Range
+class Iban extends \HylianShield\Validator\Range\Immutable
 {
     /**
      * The type.
@@ -34,13 +34,6 @@ class Iban extends \HylianShield\Validator\Range
      * @var integer $minLength
      */
     protected $minLength = 15;
-
-    /**
-     * Define the ability to overload the range while constucting the object.
-     *
-     * @var boolean $canOverloadRange
-     */
-    protected $canOverloadRange = false;
 
     /**
      * The maximum length of the value.

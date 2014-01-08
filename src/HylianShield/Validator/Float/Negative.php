@@ -9,10 +9,12 @@
 
 namespace HylianShield\Validator\Float;
 
+use \HylianShield\Validator\Float;
+
 /**
  * Negative.
  */
-class Negative extends \HylianShield\Validator\Float
+class Negative extends \HylianShield\Validator
 {
     /**
      * The type.
@@ -22,26 +24,19 @@ class Negative extends \HylianShield\Validator\Float
     protected $type = 'float_negative';
 
     /**
-     * The minimum length of the value.
-     *
-     * @var integer|float $minLength
-     */
-    protected $minLength = 0;
-
-    /**
-     * The maximum length of the value.
-     *
+     * The boundary for a negative float.
      * PHP normally uses a precision of the IEEE 754 double precision format.
-     * @see http://php.net/manual/en/language.types.float.php
      *
-     * @var integer|float $maxLength
+     * @see http://php.net/manual/en/language.types.float.php
+     * @var float BOUNDARY
      */
-    protected $maxLength = -1e-16;
+    const BOUNDARY = -1.11e-16;
 
     /**
-     * Define the ability to overload the range while constucting the object.
-     *
-     * @var boolean $canOverloadRange
+     * Create a validator for a negative float.
      */
-    protected $canOverloadRange = false;
+    public function __construct()
+    {
+        $this->validator = new Float(0, $this::BOUNDARY);
+    }
 }

@@ -74,6 +74,27 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
             // automatically throw a bunch of validations at it.
             $this->testValidations = false;
         }
+
+        // Test that the type matches the namespace of the validator.
+        if ($this->validator instanceof \HylianShield\Validator) {
+            $expected = explode('\\', $reflectionClass->getName());
+            $expected = implode(
+                '_',
+                array_map(
+                    'strtolower',
+                    // Strip off \HylianShield\Validator
+                    array_slice($expected, 2)
+                )
+            );
+
+            // Make an exception for the validators that share a type with a
+            // reserved keyword in PHP.
+            if (strpos($expected, 'core') === 0) {
+                $expected = substr($expected, 4);
+            }
+
+            $this->assertEquals($expected, $this->validator->type());
+        }
     }
 
     /**
@@ -98,7 +119,10 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
             // At least we know this much.
             $this->assertEmpty($this->validator);
         } else {
-            $this->assertInternalType('string', $this->validator->__tostring());
+            $string = $this->validator->__tostring();
+            $this->assertInternalType('string', $string);
+            $type = $this->validator->type();
+            $this->assertRegexp('/^' . preg_quote($type) . '(\:(.+)|\((.+)\))?/', $string);
         }
     }
 

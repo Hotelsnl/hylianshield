@@ -9,10 +9,12 @@
 
 namespace HylianShield\Validator\Float;
 
+use \HylianShield\Validator\Float;
+
 /**
  * Positive.
  */
-class Positive extends \HylianShield\Validator\Float
+class Positive extends \HylianShield\Validator
 {
     /**
      * The type.
@@ -22,26 +24,19 @@ class Positive extends \HylianShield\Validator\Float
     protected $type = 'float_positive';
 
     /**
-     * The minimum length of the value.
-     *
+     * The boundary for a positive float.
      * PHP normally uses a precision of the IEEE 754 double precision format.
+     *
      * @see http://php.net/manual/en/language.types.float.php
-     *
-     * @var integer|float $minLength
+     * @var float BOUNDARY
      */
-    protected $minLength = 1e-16;
+    const BOUNDARY = 1.11e-16;
 
     /**
-     * The maximum length of the value.
-     *
-     * @var integer|float $maxLength
+     * Create a validator for a positive float.
      */
-    protected $maxLength = 0;
-
-    /**
-     * Define the ability to overload the range while constucting the object.
-     *
-     * @var boolean $canOverloadRange
-     */
-    protected $canOverloadRange = false;
+    public function __construct()
+    {
+        $this->validator = new Float($this::BOUNDARY);
+    }
 }

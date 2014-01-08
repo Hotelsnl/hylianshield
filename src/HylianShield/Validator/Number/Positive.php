@@ -9,10 +9,14 @@
 
 namespace HylianShield\Validator\Number;
 
+use \HylianShield\Validator\Float;
+use \HylianShield\Validator\Integer;
+use \HylianShield\Validator\LogicalOr;
+
 /**
  * Positive.
  */
-class Positive extends \HylianShield\Validator\Number
+class Positive extends \HylianShield\Validator
 {
     /**
      * The type.
@@ -22,26 +26,11 @@ class Positive extends \HylianShield\Validator\Number
     protected $type = 'number_positive';
 
     /**
-     * The minimum length of the value.
-     *
-     * PHP normally uses a precision of the IEEE 754 double precision format.
-     * @see http://php.net/manual/en/language.types.float.php
-     *
-     * @var integer|float $minLength
+     * Create the validator
      */
-    protected $minLength = 1e-16;
-
-    /**
-     * The maximum length of the value.
-     *
-     * @var integer|float $maxLength
-     */
-    protected $maxLength = 0;
-
-    /**
-     * Define the ability to overload the range while constucting the object.
-     *
-     * @var boolean $canOverloadRange
-     */
-    protected $canOverloadRange = false;
+    public function __construct()
+    {
+        // Set a custom validator.
+        $this->validator = new LogicalOr(new Integer\Positive, new Float\Positive);
+    }
 }
